@@ -14,11 +14,16 @@
 # ==============================================================================
 relu:
     # Prologue
+    li t0 1
+    li t2 a0
+    
 
 
 loop_start:
-    
-
+    bge t0 a1 loop_end
+    lw t1 0(t2)
+    addi t2 t2 4
+    blt t1 x0 loop_continue
 
 
 
@@ -26,11 +31,12 @@ loop_start:
 
 
 loop_continue:
-
+    addi t1 x0 0
+    j loop_start
 
 
 loop_end:
-
+    
 
     # Epilogue
 
