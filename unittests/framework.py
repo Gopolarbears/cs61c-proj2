@@ -11,7 +11,7 @@ a_regs = {f"a{i}" for i in range(8)}
 # find venus jar
 _script_dir = Path(os.path.dirname(__file__)).resolve()
 _root_dir = _script_dir / '..'
-_venus_jar = _root_dir / 'tools' / 'venus.jar'
+_venus_jar = _root_dir / 'tools' / 'venus-jvm-latest.jar'
 assert _venus_jar.is_file(), f"Could not find venus.jar at {_venus_jar}"
 
 # --immutableText: immutable text, ensures that code cannot be modified

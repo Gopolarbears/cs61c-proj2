@@ -3,6 +3,12 @@ from framework import AssemblyTest, print_coverage
 
 
 class TestAbs(TestCase):
+    def test_minus_one(self):
+        t = AssemblyTest(self, "abs.s")
+        t.input_scalar("a0", -1)
+        t.call("abs")
+        t.check_scalar("a0", 1)
+        t.execute()
     def test_zero(self):
         t = AssemblyTest(self, "abs.s")
         # load 0 into register a0
