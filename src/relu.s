@@ -15,15 +15,18 @@
 relu:
     # Prologue
     li t0 1
-    li t2 a0
+    mv t2 a0
+    blt a1 t0 less_zero
     
 
 
 loop_start:
     bge t0 a1 loop_end
     lw t1 0(t2)
-    addi t2 t2 4
+    addi t0 t0 1
     blt t1 x0 loop_continue
+    addi t2 t2 4
+    j loop_start
 
 
 
@@ -32,7 +35,14 @@ loop_start:
 
 loop_continue:
     addi t1 x0 0
+    sw t1 0(t2)
+    addi t2 t2 4
     j loop_start
+    
+less_zero:
+    li a1 78
+    ecall
+    j exit2
 
 
 loop_end:

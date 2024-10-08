@@ -49,6 +49,20 @@ class TestRelu(TestCase):
         # generate the `assembly/TestRelu_test_simple.s` file and run it through venus
         t.execute()
 
+    def test_zero(self):
+        t = AssemblyTest(self, "relu.s")
+        # create an array in the data section
+        array0 = t.array([])
+        # load address of `array0` into register a0
+        t.input_array("a0", array0)
+        # set a1 to the length of our array
+        t.input_scalar("a1", len(array0))
+        # call the relu function
+        t.call("relu")
+        # check that the array0 was changed appropriately
+        t.execute(code=78)
+        # generate the `assembly/TestRelu_test_simple.s` file and run it through venus
+
     @classmethod
     def tearDownClass(cls):
         print_coverage("relu.s", verbose=False)
