@@ -14,9 +14,10 @@
 # ==============================================================================
 relu:
     # Prologue
-    li t0 1
+    li t0 0
+    li t5 1
     mv t2 a0
-    blt a1 t0 less_zero
+    blt a1 t5 less_zero
     
 
 
