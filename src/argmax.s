@@ -46,4 +46,3 @@ less_one:
     j exit2
     
     # Epilogue
-    ret
