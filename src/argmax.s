@@ -42,7 +42,6 @@ fresh_max:
 
 less_one:
     li a1 77
-    ecall
     j exit2
     
     # Epilogue

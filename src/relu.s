@@ -42,7 +42,6 @@ loop_continue:
     
 less_zero:
     li a1 78
-    ecall
     j exit2
 
 

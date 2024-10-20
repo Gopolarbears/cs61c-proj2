@@ -50,12 +50,10 @@ loop_end:
 
 length_lessthan_1:
     li a1 75
-    ecall
     j exit2
     
 stride_lessthan_1:
     li a1 76
-    ecall
     j exit2
 
     # Epilogue
