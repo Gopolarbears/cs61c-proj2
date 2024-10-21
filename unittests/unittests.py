@@ -233,8 +233,8 @@ class TestMatmul(TestCase):
     def test_simple(self):
         self.do_matmul(
             [1, 2, 3, 4, 5, 6, 7, 8, 9], 3, 3,
-            [1, 2, 3, 4, 5, 6, 7, 8, 9], 3, 3,
-            [30, 36, 42, 66, 81, 96, 102, 126, 150]
+            [1, 1, 1], 3, 1,
+            [6, 15, 24],
         )
 
     def test_m0_wrong_dimensions(self):
@@ -284,6 +284,7 @@ class TestReadMatrix(TestCase):
         t.call("read_matrix")
 
         # check the output from the function
+        t.check_array_pointer("a0", [1, 2, 3, 4, 5, 6, 7, 8, 9])
         t.check_array(rows, [3])
         t.check_array(cols, [3])
 
@@ -329,6 +330,9 @@ class TestWriteMatrix(TestCase):
         t.execute(fail=fail, code=code)
         # compare the output file against the reference
         # t.check_file_output(outfile, "outputs/test_write_matrix/reference.bin")
+        if not fail:
+            t.check_file_output(outfile, "outputs/test_write_matrix/reference.bin")
+
 
     def test_simple(self):
         self.do_write_matrix()
@@ -371,9 +375,10 @@ class TestClassify(TestCase):
         t.execute(args=args)
 
         # compare the output file and
-        raise NotImplementedError("TODO")
+        t.check_file_output(out_file, ref_file)
         # TODO
         # compare the classification output with `check_stdout`
+        t.check_stdout("2")
 
     @classmethod
     def tearDownClass(cls):

@@ -82,7 +82,7 @@ inner_loop_start:
     addi s8 s8 1
     addi s9 s9 4
     addi s6 s6 4
-    
+
     j inner_loop_start
    
 

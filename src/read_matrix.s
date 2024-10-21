@@ -80,12 +80,13 @@ read_matrix:
     jal fread
     blt a0 x0 fread_error
     
-    add a0 s8 x0
     
     add a1 s3 x0
     jal fclose
     li t3 -1
     beq a0 t3 fclose_error
+    
+    add a0 s8 x0
     
     # Epilogue
     lw s0 0(sp)
