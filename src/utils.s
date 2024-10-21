@@ -178,8 +178,7 @@ fwrite:
 #================================================================
 # int fclose(int a1)
 # Closes the file descriptor a1.
-# args:
-#   a1 = file descriptor
+# args:                     
 # return:
 #   a0 = 0 on success, and EOF (-1) otherwise.
 #================================================================

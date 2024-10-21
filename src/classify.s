@@ -20,6 +20,9 @@ classify:
     #
     # Usage:
     #   main.s <M0_PATH> <M1_PATH> <INPUT_PATH> <OUTPUT_PATH>
+    li t0 5
+    bne a0 t0 incorrect_command_args
+    
     addi sp sp -52
     sw s0 0(sp)
     sw s1 4(sp)
@@ -45,6 +48,7 @@ classify:
     lw s1 8(a1)
     lw s2 12(a1)
     lw s3 16(a1)
+    mv s11 a2
 
 
 
@@ -53,9 +57,11 @@ classify:
     # Load pretrained m0
     li a0 4
     jal malloc
+    ble a0 x0 malloc_fail
     mv s4 a0
     li a0 4
     jal malloc
+    ble a0 x0 malloc_fail
     mv s5 a0
     
     mv a0 s0 
@@ -68,9 +74,11 @@ classify:
     # Load pretrained m1
     li a0 4
     jal malloc
+    ble a0 x0 malloc_fail
     mv s6 a0
     li a0 4
     jal malloc
+    ble a0 x0 malloc_fail
     mv s7 a0
     
     mv a0 s1
@@ -84,9 +92,11 @@ classify:
     # Load input matrix
     li a0 4
     jal malloc
+    ble a0 x0 malloc_fail
     mv s8 a0
     li a0 4
     jal malloc
+    ble a0 x0 malloc_fail
     mv s9 a0
     
     mv a0 s2
@@ -108,6 +118,7 @@ classify:
     mul a0 t0 t1
     slli a0, a0, 2
     jal malloc
+    ble a0 x0 malloc_fail
     mv s10 a0
     
     mv a0 s0
@@ -126,9 +137,14 @@ classify:
     mv a1 t2
     jal relu
     
+    mv a0 s5
+    jal free
+    mv s5 s11
+    
     mul a0 s6 s9
     slli a0, a0, 2
     jal malloc
+    ble a0 x0 malloc_fail
     mv s11 a0
     
 
@@ -167,14 +183,30 @@ classify:
 
 
     # Print classification
-    mv a1 a0
-    jal print_int
-
-
-    # Print newline afterwards for clarity
-    li a1 '\n'
-    jal print_char
-
+    beq s5 x0 print
+    
+Done:
+    mv a0 s0
+    jal free
+    mv a0 s1
+    jal free
+    mv a0 s2
+    jal free
+    mv a0 s4
+    jal free
+    mv a0 s6
+    jal free
+    mv a0 s7
+    jal free
+    mv a0 s8
+    jal free
+    mv a0 s9
+    jal free
+    mv a0 s10
+    jal free
+    mv a0 s11
+    jal free
+    
     lw s0 0(sp)
     lw s1 4(sp)
     lw s2 8(sp)
@@ -192,3 +224,22 @@ classify:
 
     ret
     
+incorrect_command_args:
+    li a1 89
+    jal exit2
+    
+malloc_fail:
+    li a1 88
+    jal exit2
+
+print:
+    
+    mv a1 a0
+    jal print_int
+
+
+    # Print newline afterwards for clarity
+    li a1 '\n'
+    jal print_char
+    
+    jal Done

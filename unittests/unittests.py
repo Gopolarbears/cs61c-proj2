@@ -369,6 +369,7 @@ class TestClassify(TestCase):
         ref_file = "outputs/test_basic_main/reference0.bin"
         args = ["inputs/simple0/bin/m0.bin", "inputs/simple0/bin/m1.bin",
                 "inputs/simple0/bin/inputs/input0.bin", out_file]
+        t.input_scalar("a2", 0)
         # call classify function
         t.call("classify")
         # generate assembly and pass program arguments directly to venus
